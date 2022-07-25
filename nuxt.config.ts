@@ -1,6 +1,8 @@
 import { defineNuxtConfig } from 'nuxt';
 
 export default defineNuxtConfig({
+    transpile: ["@vime/vue-next", "@vime/core"],
+
     modules: [
         "nuxt-windicss",
         "@vueuse/nuxt",
@@ -14,9 +16,10 @@ export default defineNuxtConfig({
         "virtual:windi-base.css",
         "virtual:windi-components.css",
         "virtual:windi-utilities.css",
+        "@/assets/style/font.scss",
         "@/assets/style/app.scss",
     ],
-    
+
     windicss: {
         scan: {
             dirs: ["./"],
@@ -29,5 +32,11 @@ export default defineNuxtConfig({
 
     vueuse: {
         ssrHandlers: true,
+    },
+
+    vue: {
+        compilerOptions: {
+            isCustomElement: tag => tag.startsWith("vds-")
+        }
     }
 })

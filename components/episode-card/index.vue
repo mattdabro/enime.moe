@@ -1,10 +1,22 @@
 <template>
-  <div>
-    <img :alt="anime.id" :src="anime.coverImage"/>
+  <div class="cursor-pointer">
+    <nuxt-link :to="`/watch/${id}`">
+      <div class="aspect-video bg-cover bg-center rounded-md" v-bind:style="{ backgroundImage: `url(${anime.coverImage})` }"/>
+      <div class="mt-1">
+        <p class="text-tertiary">E #{{ number }}</p>
+        <bullet v-if="title"/>
+        <p class="text-tertiary" v-if="title">{{ title }}</p>
+      </div>
+      <div>
+        <p class="text-white text-xl text-bold">{{ anime.title.english || anime.title.romaji }}</p>
+      </div>
+    </nuxt-link>
   </div>
 </template>
 
 <script lang="ts">
+import Bullet from '@/components/icon/bullet';
+
 export default {
   props: {
     anime: {
@@ -16,7 +28,12 @@ export default {
       },
       coverImage: String
     },
-    number: Number
+    id: String,
+    number: Number,
+    title: !String
+  },
+  components: {
+    Bullet
   }
 }
 </script>

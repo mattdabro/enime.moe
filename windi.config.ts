@@ -7,5 +7,8 @@ export default defineConfig({
             black: "#000000",
             white: "#FFFFFF"
         }
-    }
+    },
+    plugins: [
+        require("windicss/plugin/aspect-ratio"),
+    ]
 })

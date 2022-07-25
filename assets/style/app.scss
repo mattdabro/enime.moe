@@ -1,4 +1,10 @@
 body {
   margin: 0; !important;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Youtube-Sans', sans-serif;
+
+  @apply bg-black;
+}
+
+.text-tertiary {
+  color: #777777;
 }
