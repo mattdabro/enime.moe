@@ -12,6 +12,8 @@ export default defineNuxtConfig({
 
     components: true,
 
+    ssr: false,
+
     css: [
         "virtual:windi-base.css",
         "virtual:windi-components.css",

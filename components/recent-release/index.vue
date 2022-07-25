@@ -12,7 +12,7 @@
 
   const page = useState("page", () => 1);
 
-  const { data: recent } = useFetch(`https://api.enime.moe/recent?page=${page}&perPage=12`);
+  const { data: recent } = useFetch(`https://api.enime.moe/recent?page=${page.value}&perPage=12`);
 </script>
 
 <style scoped>
