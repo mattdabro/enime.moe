@@ -40,5 +40,9 @@ export default defineNuxtConfig({
         compilerOptions: {
             isCustomElement: tag => tag.startsWith("vds-")
         }
-    }
+    },
+
+    link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
+    ]
 })

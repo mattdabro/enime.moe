@@ -1,16 +1,14 @@
 <template>
   <div class="cursor-pointer">
-    <nuxt-link :to="`/watch/${id}`">
-      <div class="aspect-video bg-cover bg-center rounded-md" v-bind:style="{ backgroundImage: `url(${anime.coverImage})` }"/>
-      <div class="mt-1">
-        <p class="text-tertiary">E #{{ number }}</p>
-        <bullet v-if="title"/>
-        <p class="text-tertiary" v-if="title">{{ title }}</p>
-      </div>
-      <div>
-        <p class="text-white text-xl text-bold">{{ anime.title.english || anime.title.romaji }}</p>
-      </div>
-    </nuxt-link>
+    <div class="aspect-video bg-cover bg-center rounded-md" v-bind:style="{ backgroundImage: `url(${anime.coverImage})` }"/>
+    <div class="mt-1">
+      <p class="text-tertiary">E #{{ number }}</p>
+      <bullet v-if="title"/>
+      <p class="text-tertiary" v-if="title">{{ title }}</p>
+    </div>
+    <div>
+      <p class="text-white text-xl text-bold">{{ anime.title.english || anime.title.romaji }}</p>
+    </div>
   </div>
 </template>
 

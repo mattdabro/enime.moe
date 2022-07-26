@@ -1,5 +1,5 @@
 <template>
-  <div ref="artRef" :style="this.style"></div>
+  <div class=" w-full h-full" ref="artRef" :style="this.style"></div>
 </template>
 
 <script>
@@ -11,7 +11,6 @@ export default {
     return {
       instance: null,
       option: {
-        url: this.url,
         autoSize: true,
         fullscreen: true,
         miniProgressBar: true,
@@ -21,8 +20,8 @@ export default {
         volume: 0.5
       },
       style: {
-        width: "600px",
-        height: "400px",
+        width: "50vw",
+        height: "50vh",
         margin: "60px auto 0",
       },
     };
@@ -30,14 +29,19 @@ export default {
   props: {
     url: String
   },
-  mounted() {
+  async mounted() {
     this.instance = new Artplayer({
       ...this.option,
+      url: this.url,
       container: this.$refs.artRef,
+      type: "m3u8",
+      contextmenu: [],
       customType: {
         m3u8: function (video, url) {
           if (Hls.isSupported()) {
-            const hls = new Hls();
+            const hls = new Hls({
+              debug: true
+            });
             hls.loadSource(url);
             hls.attachMedia(video);
           } else {
@@ -51,6 +55,10 @@ export default {
         },
       },
     });
+
+    this.instance.on("video:error", (...args) => {
+      console.log("Error", args);
+    })
     this.$nextTick(() => {
       this.$emit("get-instance", this.instance);
     });
@@ -62,7 +70,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>
