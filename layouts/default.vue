@@ -3,7 +3,27 @@
     <div class="flex-grow w-screen">
       <slot />
     </div>
-    <footer class="bg-[#333] p-10 px-20"> No content is hosted on this site </footer>
+    <footer class="bg-[#222] p-10 px-50">
+      <div class="flex flex-row">
+        <div class="disclaimer">
+          <div class="flex flex-row items-center mb-4">
+            <img src="/icons/512x512.png" class="w-8 mr-3" />
+            <h1 class="text-3xl">Enime-Project</h1>
+          </div>
+          <p class="gray-text">ENIME.MOE is not affiliated with or endorsed by any of the anime studios behind
+            the creation
+            of the anime presented on this site. This website is only a user interface presenting various self-hosted
+            files
+            across the internet for easy access.
+            <br />
+            © ENIME.MOE 2022
+          </p>
+        </div>
+        <div class="flex-1 flex items-center justify-center">
+          <a href="https://github.com/Enime-Project/enime.moe"><img class="h-10" src="/icons/github.png" /></a>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -14,5 +34,13 @@ export default {
 </script>
 
 <style scoped>
-
+  body {
+    margin: 0;
+  }
+  .disclaimer {
+    flex: 3;
+  }
+  .gray-text {
+    color: #ccc;
+  }
 </style>
