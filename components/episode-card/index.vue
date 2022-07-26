@@ -1,12 +1,12 @@
 <template>
-  <div class="cursor-pointer ms-5 mb-6 ml-3">
+  <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 18vw">
     <div class="aspect-video bg-cover bg-center rounded-md mb-2 p-0"
-      v-bind:style="{ backgroundImage: `url(${anime.coverImage})` }" />
-    <div class="mt-1 m-0 p-0 inline-flex items-center">
+      :style="{ backgroundImage: `url(${anime.coverImage})` }" />
+    <div class="text-overflow mt-1 m-0 p-0 inline-flex items-center">
       <p class="text-sm text-tertiary">EP{{ number }}</p>
       <!--<bullet />
       <p class="text-tertiary">{{ createdAt | date }}</p>-->
-      <p class="text-overflow text-sm text-tertiary" v-if="title">: {{ title }}</p>
+      <p class="text-sm text-tertiary" v-if="title">: {{ title }}</p>
     </div>
     <div class="">
       <p class="text-overflow p-0 text-white anime-title">{{ anime.title.english || anime.title.romaji }}</p>
@@ -31,7 +31,7 @@ export default {
     id: String,
     number: Number,
     title: !String,
-    createdAt: !String
+    createdAt: String
   },
   components: {
     Bullet
