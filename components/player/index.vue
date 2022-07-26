@@ -35,6 +35,8 @@ export default {
       url: this.url,
       container: this.$refs.artRef,
       type: "m3u8",
+      playsInline: true,
+      whitelist: ["*"],
       contextmenu: [],
       moreVideoAttr: {
         playsInline: true,
