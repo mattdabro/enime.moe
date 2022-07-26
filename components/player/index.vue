@@ -36,6 +36,10 @@ export default {
       container: this.$refs.artRef,
       type: "m3u8",
       contextmenu: [],
+      moreVideoAttr: {
+        playsInline: true,
+        "webkit-playsinline": true
+      },
       customType: {
         m3u8: function (video, url) {
           if (Hls.isSupported()) {
