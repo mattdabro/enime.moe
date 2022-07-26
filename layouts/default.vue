@@ -6,9 +6,9 @@
     <footer class="bg-[#222] p-10 px-50">
       <div class="flex flex-row">
         <div class="disclaimer">
-          <div class="flex flex-row items-center mb-4">
-            <img src="/icons/512x512.png" class="w-8 mr-3" />
-            <h1 class="text-3xl">Enime-Project</h1>
+          <div class="flex flex-row items-center mb-3">
+            <img src="/icons/128x128.png" class="w-6 mr-2" />
+            <h1 class="text-2xl">Enime-Project</h1>
           </div>
           <p class="gray-text">ENIME.MOE is not affiliated with or endorsed by any of the anime studios behind
             the creation
