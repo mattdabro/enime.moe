@@ -16,7 +16,7 @@ export default {
         miniProgressBar: true,
         screenshot: true,
         mutex: true,
-        setting: true,
+        setting: false,
         backdrop: true,
         volume: 0.5,
         hotkey: true,
@@ -40,25 +40,29 @@ export default {
     url: String
   },
   async mounted() {
-    const hls = new Hls({
-      debug: false,
-    });
-
     this.instance = new Artplayer({
       ...this.option,
       url: this.url,
       container: this.$refs.artRef,
       customType: {
-        m3u8: function (video, url) {
+        m3u8: function (video, url, art) {
+          if (art.hls) {
+            art.hls.destroy();
+            art.hls = null;
+          }
+
           if (Hls.isSupported()) {
-            hls.loadSource(url);
-            hls.attachMedia(video);
+            art.hls = new Hls({
+              debug: false,
+            });
+            art.hls.loadSource(url);
+            art.hls.attachMedia(video);
           } else {
             const canPlay = video.canPlayType('application/vnd.apple.mpegurl');
-            if (canPlay === 'probably' || canPlay === "maybe") {
+            if (canPlay === "probably" || canPlay === "maybe") {
               video.src = url;
             } else {
-              this.instance.notice.show = 'Unsupported media type: m3u8';
+              this.instance.notice.show = "Unsupported media type: m3u8";
             }
           }
         },
@@ -71,13 +75,20 @@ export default {
       this.$emit("get-instance", this.instance);
     });
 
+    instance.on("destroy", () => {
+      if (instance.hls) {
+        instance.hls.destroy();
+        instance.hls = null;
+      }
+    });
+
     instance.on("ready", () => {
       instance.controls.add(
           {
             position: "right",
             html: "Auto",
             width: 200,
-            selector: [...hls.levels.map((item, _) => {
+            selector: [...instance.hls.levels.map((item, _) => {
               return {
                 html: item.height + 'P',
                 level: _
@@ -88,41 +99,41 @@ export default {
               level: -1
             }],
             onSelect(item) {
-              hls.nextLevel = item.level;
+              instance.hls.nextLevel = item.level;
               return item.html;
             },
             mounted() {
               const $value = instance.query(".art-control-hls_levels .art-selector-value");
 
               function updateHtml() {
-                const currentLevel = hls.levels[hls.currentLevel];
+                const currentLevel = instance.hls.levels[instance.hls.currentLevel];
                 if (currentLevel && $value) {
-                  if (hls.currentLevel === -1) $value.innerHTML = "Auto";
-                  $value.innerHTML = currentLevel.height + "P";
+                  if (this.instance.hls.currentLevel === -1) $value.innerHTML = "Auto";
+                  else $value.innerHTML = currentLevel.height + "P";
                 }
               }
 
-              hls.once(Hls.Events.LEVEL_SWITCHING, (level) => {
+              instance.hls.once(Hls.Events.LEVEL_SWITCHING, (level) => {
                 updateHtml();
               });
 
-              hls.once(Hls.Events.LEVEL_SWITCHED, (level) => {
+              instance.hls.once(Hls.Events.LEVEL_SWITCHED, (level) => {
                  updateHtml();
               });
 
-              hls.once(Hls.Events.LEVEL_LOADING, (level) => {
+              instance.hls.once(Hls.Events.LEVEL_LOADING, (level) => {
                  updateHtml();
               });
 
-              hls.once(Hls.Events.LEVEL_LOADED, (level) => {
+              instance.hls.once(Hls.Events.LEVEL_LOADED, (level) => {
                  updateHtml();
               });
 
-              hls.once(Hls.Events.LEVEL_UPDATED, (level) => {
+              instance.hls.once(Hls.Events.LEVEL_UPDATED, (level) => {
                  updateHtml();
               });
 
-              hls.once(Hls.Events.LEVELS_UPDATED, (level) => {
+              instance.hls.once(Hls.Events.LEVELS_UPDATED, (level) => {
                  updateHtml();
               });
             }

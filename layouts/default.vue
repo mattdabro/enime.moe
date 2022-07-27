@@ -20,7 +20,7 @@
           </p>
         </div>
         <div class="flex-1 flex items-center justify-center">
-          <a href="https://github.com/Enime-Project/enime.moe"><img class="h-10" src="/icons/github.png" /></a>
+          <a target="_blank" href="https://github.com/Enime-Project/enime.moe"><img class="h-10" src="/icons/github.png" /></a>
         </div>
       </div>
     </footer>
