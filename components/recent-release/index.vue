@@ -1,18 +1,18 @@
 <template>
   <p class="font-bold text-4xl ml-8 mt-10">Recently Released</p>
-  <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-screen relative mb-20">
-    <div @click="scrollLeft" class="button left p-0 w-10 h-10">
+  <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 px-10 w-screen relative mb-20">
+    <div @click="scrollLeft" class="button left ml-5 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
     <div @scroll="scroll" id="eps" ref="eps"
-      class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-screen">
+      class="m-10 grid grid-rows-6 md:grid-rows-4 lg:grid-rows-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-6 m-0 overflow-x-scroll gap-x-5 gap-y-10">
       <nuxt-link :nuxt-child-key="episode.id" :to="`/watch/${episode.id}`" :key="episode.id"
         v-for="(episode, index) in recent.data" class="p-0 m-0">
         <episode-card :key="episode.id" :anime="episode.anime" :title="episode.title" :id="episode.id"
           :number="episode.number" :createdAt="episode.createdAt" />
       </nuxt-link>
     </div>
-    <div @click="scrollRight" class="button right p-0 w-10 h-10">
+    <div @click="scrollRight" class="button right mr-5 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
   </div>

@@ -5,8 +5,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "start": "nuxt start",
-    "install": "pnpm install --shamefully-hoist"
+    "start": "nuxt start"
   },
   "devDependencies": {
     "@vueuse/core": "^8.9.4",
