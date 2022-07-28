@@ -5,7 +5,7 @@
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
     <div @scroll="scroll" id="eps" ref="eps"
-      class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-screen">
+      class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-screen pr-5">
       <nuxt-link :nuxt-child-key="episode.id" :to="`/watch/${episode.id}`" :key="episode.id"
         v-for="(episode, index) in recent.data" class="p-0 m-0">
         <episode-card :key="episode.id" :anime="episode.anime" :title="episode.title" :id="episode.id"
@@ -19,15 +19,27 @@
 </template>
 
 <script setup lang="ts">
-  import { useFetch } from '#app';
   import { ref } from '#imports';
+  import { useFetch } from '#app';
 
-  const page = ref(1);
-  function load() {
-    return useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=12`)
+  // https://stackoverflow.com/a/42769683/10013227
+  function convertRemToPixels(rem) {
+    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
   }
 
-  let { data: recent } = await load();
+  const rows = Math.ceil(window.innerWidth / convertRemToPixels(11)) * 2;
+
+  const page = ref(1);
+
+  let { data: recent, refresh } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value++}&perPage=${rows}`);
+
+  async function scroll(e: Event) {
+    const eps = e.target as HTMLElement;
+    if (eps.scrollLeft + eps.clientWidth >= eps.scrollWidth) {
+      refresh();
+      eps.scrollLeft = eps.scrollWidth;
+    }
+  }
 </script>
 
 <script lang="ts">
@@ -38,15 +50,6 @@
       LeftArrow
     },
     methods: {
-      async scroll() {
-        if(this.$refs.eps.scrollLeft + this.$refs.eps.clientWidth >= this.$refs.eps.scrollWidth) {
-          page.value++;
-          recent = recent.concat(await load());
-          this.$nextTick(() => {
-            this.$refs.eps.scrollLeft = this.$refs.eps.scrollWidth;
-          });
-        }
-      },
       scrollLeft() {
         const eps = this.$refs.eps as HTMLElement;
         eps.scrollTo({
@@ -76,7 +79,7 @@
     cursor: pointer;
     margin: 5px;
     border-radius: 50%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
     background-color: #000;
     border: solid 1px #ccc;
     display: flex;
