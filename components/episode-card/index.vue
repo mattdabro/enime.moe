@@ -1,6 +1,6 @@
 <template>
-  <div class="cursor-pointer">
-    <div class="bg-cover bg-center rounded-md mb-2 aspect-w-7 aspect-h-9 relative"
+  <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 11rem;">
+    <div class="anime-image bg-cover bg-center rounded-md mb-2"
       :style="{ backgroundImage: `url(${anime.coverImage})` }" />
     <div class="text-overflow mt-1 m-0 p-0 flex items-center">
       <p class="text-sm text-tertiary">EP{{ number }}</p>
@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style scoped>
+  .anime-image {
+    aspect-ratio: 2/3;
+  }
   .text-overflow {
     overflow: hidden;
     white-space: nowrap;
