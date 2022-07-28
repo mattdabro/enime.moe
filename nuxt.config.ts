@@ -58,9 +58,9 @@ export default defineNuxtConfig({
                         "  function gtag(){dataLayer.push(arguments);}\n" +
                         "  gtag('js', new Date());\n" +
                         "\n" +
-                        `  gtag('config', "${process.env.GOOGLE_TAG_ID}");` },
+                        `  gtag('config', "${process.env.NUXT_PUBLIC_GOOGLE_TAG_ID}");` },
                 // Insert your Google Tag Manager Script here
-                { src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_TAG_ID}`, async: true, type: 'text/partytown' },
+                { src: `https://www.googletagmanager.com/gtag/js?id=${process.env.NUXT_PUBLIC_GOOGLE_TAG_ID}`, async: true, type: 'text/partytown' },
             ],
         },
     },
