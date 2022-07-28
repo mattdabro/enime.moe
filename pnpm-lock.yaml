@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@nuxtjs/composition-api': ^0.33.0
+  '@nuxtjs/partytown': ^1.2.1
   '@pinia/nuxt': ^0.3.0
   '@vime/core': ^5.3.1
   '@vime/vue-next': ^5.3.1
@@ -34,6 +35,7 @@ dependencies:
   vue-videojs7: 1.0.2
 
 devDependencies:
+  '@nuxtjs/partytown': 1.2.1
   '@vueuse/core': 8.9.4
   '@vueuse/nuxt': 8.9.4
   nuxt: 3.0.0-rc.6_sass@1.54.0
@@ -332,6 +334,11 @@ packages:
     dependencies:
       '@babel/helper-validator-identifier': 7.18.6
       to-fast-properties: 2.0.0
+
+  /@builder.io/partytown/0.6.4:
+    resolution: {integrity: sha512-W6C7O0eSg6YNujHYZozXK5iJ+V69QVLLLRv+NlmYh1vFe0PUJ3kmAhRCx7rUqI3XAA/KpdyfdxLoopBg3GlfVA==}
+    hasBin: true
+    dev: true
 
   /@cloudflare/kv-asset-handler/0.2.0:
     resolution: {integrity: sha512-MVbXLbTcAotOPUj0pAMhVtJ+3/kFkwJqc5qNOleOZTv6QkZZABDMS21dSrSlVswEHwrpWC03e4fWytjqKvuE2A==}
@@ -691,6 +698,22 @@ packages:
       pathe: 0.3.2
       ufo: 0.8.5
     dev: false
+
+  /@nuxtjs/partytown/1.2.1:
+    resolution: {integrity: sha512-4kKza3idt1vRzLaeK4pnXeSg82iPG8cFhLcFNvyn7pNX7FLf8jciqdOY05xlKXeBYa7EY162euKHY2+eb0IXPg==}
+    dependencies:
+      '@builder.io/partytown': 0.6.4
+      '@nuxt/kit': 3.0.0-rc.6
+      knitwork: 0.1.2
+      serve-static: 1.15.0
+      ufo: 0.8.5
+    transitivePeerDependencies:
+      - esbuild
+      - rollup
+      - supports-color
+      - vite
+      - webpack
+    dev: true
 
   /@pinia/nuxt/0.3.0:
     resolution: {integrity: sha512-x/T8GAfpLAF/a5I06frgl7Aj+X9Ld3fvBhQ6xtinHsXivbrUSL1UNJof8JKEAZBwKX33CoCyeGWbXfOtpyODug==}

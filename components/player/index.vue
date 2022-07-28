@@ -100,7 +100,7 @@ export default {
               level: -1
             }],
             onSelect(item) {
-              this.instance.hls.nextLevel = item.level;
+              instance.hls.nextLevel = item.level;
               return item.html;
             },
             mounted() {

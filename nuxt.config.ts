@@ -7,7 +7,8 @@ export default defineNuxtConfig({
         "nuxt-windicss",
         "@vueuse/nuxt",
         "@pinia/nuxt",
-        "nuxt-storm"
+        "nuxt-storm",
+        "@nuxtjs/partytown"
     ],
 
     components: true,
@@ -44,5 +45,23 @@ export default defineNuxtConfig({
 
     link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
-    ]
+    ],
+
+    partytown: {
+        forward: ["dataLayer.push"],
+    },
+
+    app: {
+        head: {
+            script: [
+                { children: `window.dataLayer = window.dataLayer || [];\n` +
+                        "  function gtag(){dataLayer.push(arguments);}\n" +
+                        "  gtag('js', new Date());\n" +
+                        "\n" +
+                        `  gtag('config', "${process.env.GOOGLE_TAG_ID}");` },
+                // Insert your Google Tag Manager Script here
+                { src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_TAG_ID}`, async: true, type: 'text/partytown' },
+            ],
+        },
+    },
 })

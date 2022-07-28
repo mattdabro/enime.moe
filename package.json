@@ -10,6 +10,7 @@
     "docker:push": "docker push enime/site:1.0"
   },
   "devDependencies": {
+    "@nuxtjs/partytown": "^1.2.1",
     "@vueuse/core": "^8.9.4",
     "@vueuse/nuxt": "^8.9.4",
     "nuxt": "3.0.0-rc.6",
