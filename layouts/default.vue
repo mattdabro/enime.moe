@@ -1,13 +1,13 @@
 <template>
   <div class="bg-black text-white h-screen w-screen flex flex-col">
-    <div class="flex-grow w-screen">
+    <div class="flex-grow w-screen p-0 m-0">
       <slot />
     </div>
     <footer class="bg-[#222] p-10 px-50">
       <div class="flex flex-row">
         <div class="disclaimer">
           <div class="flex flex-row items-center mb-3">
-            <img src="/icons/128x128.png" class="w-6 mr-2" />
+            <img src="/icons/64x64.png" class="w-6 mr-2" />
             <h1 class="text-2xl">Enime-Project</h1>
           </div>
           <p class="gray-text">ENIME.MOE is not affiliated with or endorsed by any of the anime studios behind
@@ -34,9 +34,6 @@ export default {
 </script>
 
 <style scoped>
-  body {
-    margin: 0;
-  }
   .disclaimer {
     flex: 3;
   }

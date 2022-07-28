@@ -9,6 +9,6 @@ export default defineConfig({
         }
     },
     plugins: [
-        require("windicss/plugin/aspect-ratio"),
+        require("windicss/plugin/aspect-ratio")
     ]
 })

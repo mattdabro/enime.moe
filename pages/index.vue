@@ -1,7 +1,5 @@
 <template>
-  <div class="p-5">
-    <recent-release/>
-  </div>
+  <recent-release/>
 </template>
 
 <script>

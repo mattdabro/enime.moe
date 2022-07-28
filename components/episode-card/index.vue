@@ -1,8 +1,8 @@
 <template>
-  <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 18vw">
-    <div class="aspect-video bg-cover bg-center rounded-md mb-2 p-0"
+  <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 16vw;">
+    <div class="anime-image bg-cover bg-center rounded-md mb-2"
       :style="{ backgroundImage: `url(${anime.coverImage})` }" />
-    <div class="text-overflow mt-1 m-0 p-0 inline-flex items-center">
+    <div class="text-overflow mt-1 m-0 p-0 flex items-center">
       <p class="text-sm text-tertiary">EP{{ number }}</p>
       <!--<bullet />
       <p class="text-tertiary">{{ createdAt | date }}</p>-->
@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style scoped>
+  .anime-image {
+    aspect-ratio: 2/3;
+  }
   .text-overflow {
     overflow: hidden;
     white-space: nowrap;
