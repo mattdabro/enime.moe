@@ -3,8 +3,8 @@
     <div class="flex-grow w-screen p-0 m-0">
       <slot />
     </div>
-    <footer class="bg-[#222] p-10 px-50">
-      <div class="flex flex-row">
+    <footer class="bg-[#222] p-10">
+      <div class="flex flex-row container mx-auto">
         <div class="disclaimer">
           <div class="flex flex-row items-center mb-3">
             <img src="/icons/64x64.png" class="w-6 mr-2" />
