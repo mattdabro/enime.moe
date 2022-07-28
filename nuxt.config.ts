@@ -47,9 +47,11 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
     ],
 
+    /*
     partytown: {
         forward: ["dataLayer.push"],
     },
+     */
 
     app: {
         head: {
@@ -58,9 +60,8 @@ export default defineNuxtConfig({
                         "  function gtag(){dataLayer.push(arguments);}\n" +
                         "  gtag('js', new Date());\n" +
                         "\n" +
-                        `  gtag('config', "${process.env.NUXT_PUBLIC_GOOGLE_TAG_ID}");` },
-                // Insert your Google Tag Manager Script here
-                { src: `https://www.googletagmanager.com/gtag/js?id=${process.env.NUXT_PUBLIC_GOOGLE_TAG_ID}`, async: true, type: 'text/partytown' },
+                        `  gtag('config', "${process.env.NUXT_ENV_GOOGLE_TAG_ID}");` },
+                { src: `https://www.googletagmanager.com/gtag/js?id=${process.env.NUXT_ENV_GOOGLE_TAG_ID}`, async: true/*, type: 'text/partytown'*/ },
             ],
         },
     },
