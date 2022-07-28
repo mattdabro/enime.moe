@@ -1,6 +1,6 @@
 <template>
   <p class="font-bold text-4xl ml-8 mt-10">Recently Released</p>
-  <div class="container flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-screen relative">
+  <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-screen relative mb-20">
     <div @click="scrollLeft" class="button left p-0 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
     </div>

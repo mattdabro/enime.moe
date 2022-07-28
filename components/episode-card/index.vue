@@ -1,5 +1,5 @@
 <template>
-  <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 16vw;">
+  <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 11rem;">
     <div class="anime-image bg-cover bg-center rounded-md mb-2"
       :style="{ backgroundImage: `url(${anime.coverImage})` }" />
     <div class="text-overflow mt-1 m-0 p-0 flex items-center">
