@@ -1,6 +1,6 @@
 <template>
   <div class="p-5 text-center">
-    <p class="text-4xl">{{ anime.title.english || anime.title.romaji }} Episode {{ number }}</p>
+    <p class="text-4xl">{{ preferredTitle }} Episode {{ number }}</p>
     <p v-if="title" class="text-2xl">
       {{ title }}
     </p>
@@ -38,14 +38,16 @@ if (episode.error.value || !episode.data.value.sources?.length) {
 
 const { number, anime, title } = episode.data.value;
 
+const preferredTitle = anime.title.userPreferred || anime.title.english || anime.title.romaji;
+
 const url = episode.data.value.sources[0].url;
 
 useHead({
-  title: `Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} | ${anime.title.userPreferred || anime.title.english || anime.title.romaji} | Enime`,
+  title: `Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} | ${preferredTitle} | Enime`,
   meta: [
     {
       name: "og:title",
-      content: `${anime.title.userPreferred || anime.title.english || anime.title.romaji} Episode ${number}`
+      content: `${preferredTitle} Episode ${number}`
     },
     {
       name: "og:type",
@@ -61,7 +63,7 @@ useHead({
     },
     {
       name: "og:description",
-      content: `Watch ${anime.title.english || anime.title.romaji} Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} online on Enime - An ad-free and VPN-free anime site built with performance in mind.`
+      content: `Watch ${preferredTitle} Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} online on Enime - An ad-free and VPN-free anime site built with performance in mind.`
     },
     {
       name: "twitter:card",
