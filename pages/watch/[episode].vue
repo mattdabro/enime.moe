@@ -61,7 +61,7 @@ useHead({
     },
     {
       name: "og:description",
-      content: `Watch ${anime.title.english || anime.title.romaji} online Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} on Enime - An ad-free and VPN-free anime site built with performance in mind.`
+      content: `Watch ${anime.title.english || anime.title.romaji} Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} online on Enime - An ad-free and VPN-free anime site built with performance in mind.`
     },
     {
       name: "twitter:card",
