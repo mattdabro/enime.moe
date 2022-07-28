@@ -8,7 +8,7 @@ export default defineNuxtConfig({
         "@vueuse/nuxt",
         "@pinia/nuxt",
         "nuxt-storm",
-        "@nuxtjs/partytown"
+        // "@nuxtjs/partytown"
     ],
 
     components: true,
@@ -60,8 +60,8 @@ export default defineNuxtConfig({
                         "  function gtag(){dataLayer.push(arguments);}\n" +
                         "  gtag('js', new Date());\n" +
                         "\n" +
-                        `  gtag('config', "${process.env.NUXT_ENV_GOOGLE_TAG_ID}");` },
-                { src: `https://www.googletagmanager.com/gtag/js?id=${process.env.NUXT_ENV_GOOGLE_TAG_ID}`, async: true/*, type: 'text/partytown'*/ },
+                        `  gtag('config', "${process.env.NUXT_ENV_GOOGLE_TAG_ID || process.env.NUXT_PUBLIC_GOOGLE_TAG_ID}");` },
+                { src: `https://www.googletagmanager.com/gtag/js?id=${process.env.NUXT_ENV_GOOGLE_TAG_ID || process.env.NUXT_PUBLIC_GOOGLE_TAG_ID}`, async: true/*, type: 'text/partytown'*/ },
             ],
         },
     },

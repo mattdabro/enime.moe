@@ -18,6 +18,7 @@ specifiers:
   sass: ^1.54.0
   sass-loader: '10'
   video.js: ^7.20.1
+  vue-gtag: ^2.0.1
   vue-video-player: ^5.0.2
   vue-videojs7: ^1.0.2
 
@@ -31,6 +32,7 @@ dependencies:
   lit: 2.2.8
   pinia: 2.0.16
   video.js: 7.20.1
+  vue-gtag: 2.0.1
   vue-video-player: 5.0.2
   vue-videojs7: 1.0.2
 
@@ -5418,6 +5420,12 @@ packages:
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
+
+  /vue-gtag/2.0.1:
+    resolution: {integrity: sha512-aM4A58FVL0wV2ptYi+xzAjeg+pQVRyUcfBc5UkXAwQrR4t3WBhor50Izp2I+3Oo7+l+vWJ7u78DGcNzReb8S/A==}
+    peerDependencies:
+      vue: ^3.0.0
+    dev: false
 
   /vue-ribbon/1.0.1:
     resolution: {integrity: sha512-2YPMujiCsZcNa4MZXGQmg9IOkZQMShUHRGnbZycRYrBLJ2PoCJGl22jf9ld+B7PrSbmKCQqdkyXCtjih5gfuYw==}
