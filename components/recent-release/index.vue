@@ -1,7 +1,7 @@
 <template>
   <p class="font-bold text-4xl ml-8 mt-10">Recently Released</p>
   <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-screen relative mb-20">
-    <div @click="scrollLeft" class="button left p-0 w-10 h-10">
+    <div ref="sleft" @click="scrollLeft" class="button left disabled p-0 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
     <div @scroll="scroll" id="eps" ref="eps"
@@ -12,7 +12,7 @@
           :number="episode.number" :createdAt="episode.createdAt" />
       </nuxt-link>
     </div>
-    <div @click="scrollRight" class="button right p-0 w-10 h-10">
+    <div ref="sright" @click="scrollRight" class="button right p-0 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
   </div>
@@ -23,11 +23,12 @@
   import { useFetch } from '#app';
 
   // https://stackoverflow.com/a/42769683/10013227
-  function convertRemToPixels(rem) {
+  function convertRemToPixels(rem: number) {
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
   }
 
-  const rows = Math.ceil(window.innerWidth / convertRemToPixels(11)) * 2;
+  const rem11 = convertRemToPixels(11);
+  const rows = Math.ceil(window.innerWidth / rem11) * 2;
 
   const page = ref(1);
   const recent = ref([]);
@@ -36,10 +37,11 @@
   const { data } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=${rows}`)
   recent.value = data.value.data as any[];
 
-watch(page, async () => {
-    console.log(page.value);
-    console.log(recent.value);
+  watch(page, async () => {
     const { data } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=${rows}`);
+    if(data.value.meta.currentPage === data.value.meta.lastPage)
+      return document.querySelector('.right').classList.add('disabled');
+    else document.querySelector('.right').classList.remove('disabled');
     for (let i = 0; i < rows; i++) {
       recent.value.push(data.value.data[i]);
     }
@@ -57,24 +59,28 @@ watch(page, async () => {
 <script lang="ts">
   import LeftArrow from '@/components/icon/leftarrow.vue';
 
+  function sc(e: Element, s: number) {
+    e.scrollTo({
+      left: e.scrollLeft + s * window.innerWidth,
+      behavior: 'smooth'
+    });
+    return e.scrollLeft + s * window.innerWidth;
+  }
+
   export default {
     components: {
       LeftArrow
     },
     methods: {
       scrollLeft() {
-        const eps = this.$refs.eps as HTMLElement;
-        eps.scrollTo({
-          left: eps.scrollLeft - 300,
-          behavior: 'smooth'
-        });
+        this.$refs.sright.classList.remove('disabled');
+        if (sc(this.$refs.eps as HTMLElement, -1) <= 0)
+          this.$refs.sleft.classList.add('disabled');
+        else this.$refs.sleft.classList.remove('disabled');
       },
       scrollRight() {
-        const eps = this.$refs.eps as HTMLElement;
-        eps.scrollTo({
-          left: eps.scrollLeft + 300,
-          behavior: 'smooth'
-        });
+        sc(this.$refs.eps as HTMLElement, 1);
+        this.$refs.sleft.classList.remove('disabled');
       }
     }
   }
@@ -91,12 +97,16 @@ watch(page, async () => {
     cursor: pointer;
     margin: 5px;
     border-radius: 50%;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0);
+    box-shadow: 0px 0px 2px rgb(0, 0, 0);
     background-color: #000;
-    border: solid 1px #ccc;
+    border: solid 1px #aaa;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
   .button:hover {
     transition: background-color 0.2s linear;
