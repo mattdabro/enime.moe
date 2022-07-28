@@ -11,6 +11,7 @@ export default {
     return {
       instance: null,
       option: {
+        ssr: true,
         autoSize: true,
         fullscreen: true,
         miniProgressBar: true,
@@ -69,26 +70,26 @@ export default {
       },
     });
 
-    const instance = this.instance;
-
     this.$nextTick(() => {
       this.$emit("get-instance", this.instance);
     });
 
-    instance.on("destroy", () => {
+    this.instance.on("destroy", () => {
       if (instance.hls) {
         instance.hls.destroy();
         instance.hls = null;
       }
     });
 
-    instance.on("ready", () => {
-      instance.controls.add(
+    const instance = this.instance;
+
+    this.instance.on("ready", () => {
+      this.instance.controls.add(
           {
             position: "right",
             html: "Auto",
             width: 200,
-            selector: [...instance.hls.levels.map((item, _) => {
+            selector: [...this.instance.hls.levels.map((item, _) => {
               return {
                 html: item.height + 'P',
                 level: _
@@ -99,7 +100,7 @@ export default {
               level: -1
             }],
             onSelect(item) {
-              instance.hls.nextLevel = item.level;
+              this.instance.hls.nextLevel = item.level;
               return item.html;
             },
             mounted() {
@@ -108,7 +109,7 @@ export default {
               function updateHtml() {
                 const currentLevel = instance.hls.levels[instance.hls.currentLevel];
                 if (currentLevel && $value) {
-                  if (this.instance.hls.currentLevel === -1) $value.innerHTML = "Auto";
+                  if (instance.hls.currentLevel === -1) $value.innerHTML = "Auto";
                   else $value.innerHTML = currentLevel.height + "P";
                 }
               }

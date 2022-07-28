@@ -1,5 +1,4 @@
 <template>
-  <p class="font-bold text-4xl ml-8 mt-10">Recently Released</p>
   <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-screen relative mb-20">
     <div ref="sleft" @click="scrollLeft" class="button left disabled p-0 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
@@ -19,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from '#imports';
+  import { ref, watch } from '#imports';
   import { useFetch } from '#app';
 
   // https://stackoverflow.com/a/42769683/10013227
@@ -33,18 +32,23 @@
   const page = ref(1);
   const recent = ref([]);
 
+  const { data } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=${rows}`);
 
-  const { data } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=${rows}`)
-  recent.value = data.value.data as any[];
+  load();
 
-  watch(page, async () => {
-    const { data } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=${rows}`);
-    if(data.value.meta.currentPage === data.value.meta.lastPage)
-      return document.querySelector('.right').classList.add('disabled');
-    else document.querySelector('.right').classList.remove('disabled');
-    for (let i = 0; i < rows; i++) {
-      recent.value.push(data.value.data[i]);
+  function load() {
+    if (data.value) {
+      if(data.value.meta.currentPage === data.value.meta.lastPage)
+        return document.querySelector('.right')?.classList?.add('disabled');
+      else document.querySelector('.right')?.classList?.remove('disabled');
+      for (let i = 0; i < rows; i++) {
+        recent.value.push(data.value.data[i]);
+      }
     }
+  }
+
+  watch(data, () => {
+    load();
   });
 
   async function scroll(e: Event) {
