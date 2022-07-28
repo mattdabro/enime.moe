@@ -1,6 +1,9 @@
 <template>
   <div class="p-5 text-center">
     <p class="text-4xl">{{ anime.title.english || anime.title.romaji }} Episode {{ number }}</p>
+    <p v-if="title" class="text-2xl">
+      {{ title }}
+    </p>
     <client-only>
       <div v-if="!!url" class="w-full h-full mt-5">
         <Player @get-instance="getInstance" :url="url"/>
@@ -33,18 +36,16 @@ if (episode.error.value || !episode.data.value.sources?.length) {
   await router.push("/404?cause=episode-not-found");
 }
 
-const { number } = episode.data.value;
-const { anime } = episode.data.value;
-// const { pending, data: source } = await useLazyAsyncData(`/source/${episode.data.value.sources[0].url}`, () => $fetch.raw(episode.data.value.sources[0].url));
+const { number, anime, title } = episode.data.value;
 
 const url = episode.data.value.sources[0].url;
 
 useHead({
-  title: `Watch ${anime.title.english || anime.title.romaji} Episode ${number} on Enime`,
+  title: `Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} | ${anime.title.userPreferred || anime.title.english || anime.title.romaji} | Enime`,
   meta: [
     {
       name: "og:title",
-      content: anime.title.english || anime.title.romaji
+      content: `${anime.title.userPreferred || anime.title.english || anime.title.romaji} Episode ${number}`
     },
     {
       name: "og:type",
