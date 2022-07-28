@@ -9,7 +9,7 @@
       <p class="text-sm text-tertiary" v-if="title">: {{ title }}</p>
     </div>
     <div class="">
-      <p class="text-overflow p-0 text-white anime-title">{{ anime.title.english || anime.title.romaji }}</p>
+      <p class="text-overflow p-0 text-white anime-title">{{ anime.title.userPreferred || anime.title.english || anime.title.romaji }}</p>
     </div>
   </div>
 </template>

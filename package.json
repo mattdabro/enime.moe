@@ -5,7 +5,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "start": "nuxt start"
+    "start": "nuxt start",
+    "docker:build": "docker build -t enime/site:1.0 .",
+    "docker:push": "docker push enime/site:1.0"
   },
   "devDependencies": {
     "@vueuse/core": "^8.9.4",
