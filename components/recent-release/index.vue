@@ -33,7 +33,6 @@
   const recent = ref([]);
 
   const { data } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=${rows}`);
-
   load();
 
   function load() {

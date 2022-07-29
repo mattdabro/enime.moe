@@ -12,7 +12,8 @@
           </div>
           <p class="gray-text">ENIME.MOE is not affiliated with or endorsed by any of the anime studios behind
             the creation
-            of the anime presented on this site. This website is only a user interface presenting/linking various self-hosted
+            of the anime presented on this site. This website is only a user interface presenting/linking various
+            self-hosted
             files
             across the internet by other third-party providers for easy access.
             <br />
@@ -20,7 +21,9 @@
           </p>
         </div>
         <div class="flex-1 flex items-center justify-center">
-          <a target="_blank" href="https://github.com/Enime-Project/enime.moe"><img class="h-10" src="/icons/github.png" /></a>
+          <a target="_blank" href="https://github.com/Enime-Project/enime.moe"><img class="h-7 mr-5"
+              src="/icons/github.png" /></a>
+          <a target="_blank" href="https://discord.gg/9tGQsuyx"><img class="w-7" src="/icons/discord.png" /></a>
         </div>
       </div>
     </footer>
