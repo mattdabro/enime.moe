@@ -5,7 +5,6 @@
 <script>
 import Artplayer from 'artplayer';
 import Hls from 'hls.js';
-import fetchLoader from 'hls.js/src/utils/fetch-loader';
 
 export default {
   data() {
@@ -69,13 +68,7 @@ export default {
 
           if (Hls.isSupported()) {
             art.hls = new Hls({
-              debug: false,
-              loader: fetchLoader,
-              fetchSetup: (context, initParams) => {
-                return new Request(context.url, {
-                  ...initParams
-                });
-              }
+              debug: false
             });
             art.hls.loadSource(url);
             art.hls.attachMedia(video);
