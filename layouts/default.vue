@@ -23,7 +23,7 @@
         <div class="flex-1 flex items-center justify-center">
           <a target="_blank" href="https://github.com/Enime-Project/enime.moe"><img class="h-7 mr-5"
               src="/icons/github.png" /></a>
-          <a target="_blank" href="https://discord.gg/9tGQsuyx"><img class="w-7" src="/icons/discord.png" /></a>
+          <a target="_blank" href="https://discord.gg/nxr8be8WGa"><img class="w-7" src="/icons/discord.png" /></a>
         </div>
       </div>
     </footer>
