@@ -12,9 +12,9 @@
           </div>
           <p class="gray-text">ENIME.MOE is not affiliated with or endorsed by any of the anime studios behind
             the creation
-            of the anime presented on this site. This website is only a user interface presenting various self-hosted
+            of the anime presented on this site. This website is only a user interface presenting/linking various self-hosted
             files
-            across the internet for easy access.
+            across the internet by other third-party providers for easy access.
             <br />
             © ENIME.MOE 2022
           </p>
