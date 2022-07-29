@@ -5,6 +5,7 @@
 <script>
 import Artplayer from 'artplayer';
 import Hls from 'hls.js';
+import fetchLoader from 'hls.js/src/utils/fetch-loader';
 
 export default {
   data() {
@@ -26,6 +27,8 @@ export default {
         whitelist: ["*"],
         contextmenu: [],
         moreVideoAttr: {
+          crossOrigin: 'anonymous',
+          preload: "none",
           playsInline: true,
           "webkit-playsinline": true
         },
@@ -38,13 +41,25 @@ export default {
     };
   },
   props: {
-    url: String
+    sources: Array
   },
   async mounted() {
+    const sources = this.sources.filter(source => source.website !== "Zoro");
+    sources.sort((a, b) => -(a.priority - b.priority));
+
+    let primarySource = sources[0];
+
     this.instance = new Artplayer({
       ...this.option,
-      url: this.url,
+      url: primarySource.url,
       container: this.$refs.artRef,
+      ...(primarySource.subtitle && {
+        subtitle: {
+          url: `https://api.enime.moe/proxy/source/${primarySource.id}/subtitle`,
+          type: "vtt",
+          encoding: "UTF-8"
+        }
+      }),
       customType: {
         m3u8: function (video, url, art) {
           if (art.hls) {
@@ -55,6 +70,12 @@ export default {
           if (Hls.isSupported()) {
             art.hls = new Hls({
               debug: false,
+              loader: fetchLoader,
+              fetchSetup: (context, initParams) => {
+                return new Request(context.url, {
+                  ...initParams
+                });
+              }
             });
             art.hls.loadSource(url);
             art.hls.attachMedia(video);

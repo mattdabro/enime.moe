@@ -5,8 +5,8 @@
       {{ title }}
     </p>
     <client-only>
-      <div v-if="!!url" class="w-full h-full mt-5">
-        <Player @get-instance="getInstance" :url="url"/>
+      <div v-if="!!sources" class="w-full h-full mt-5">
+        <Player @get-instance="getInstance" :sources="sources"/>
       </div>
       <div v-else>
         Loading player
@@ -36,14 +36,12 @@ if (episode.error.value || !episode.data.value.sources?.length) {
   await router.push("/404?cause=episode-not-found");
 }
 
-const { number, anime, title } = episode.data.value;
+const { id, number, anime, title, sources, image } = episode.data.value;
 
 const preferredTitle = anime.title.userPreferred || anime.title.english || anime.title.romaji;
 
-const url = episode.data.value.sources[0].url;
-
 useHead({
-  title: `Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} | ${preferredTitle} | Enime`,
+  title: `Episode ${number}${title ? ` - ${title}` : ""} | ${preferredTitle} | Enime`,
   meta: [
     {
       name: "og:title",
@@ -55,15 +53,15 @@ useHead({
     },
     {
       name: "og:url",
-      content: `https://enime.moe/watch/${episode.data.value.id}`
+      content: `https://enime.moe/watch/${id}`
     },
     {
       name: "og:image",
-      content: episode.data.value.image || anime.bannerImage || anime.coverImage
+      content: image || anime.bannerImage || anime.coverImage
     },
     {
       name: "og:description",
-      content: `Watch ${preferredTitle} Episode ${number}${episode.data.value.title ? ` - ${episode.data.value.title}` : ""} online on Enime - An ad-free and VPN-free anime site built with performance in mind.`
+      content: `Watch ${preferredTitle} Episode ${number}${title ? ` - ${title}` : ""} online on Enime - An ad-free and VPN-free anime site built with performance in mind.`
     },
     {
       name: "twitter:card",
