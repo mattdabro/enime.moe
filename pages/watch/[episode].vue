@@ -19,11 +19,11 @@
       </div>
     </div>
     <div class="list flex-1 pl-10">
-      <span class="text-3xl mb-8">Episodes</span>
+      <span class="text-3xl mb-8 pl-3">Episodes</span>
       <div class="flex flex-col pt-4">
-        <nuxt-link v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${ep.id}`" class="p-0 m-0 flex justify-content-start items-center mb-1">
-          <p class="text-xl text-tertiary flex-shrink-0">Episode {{ ep.number }}</p>
-          <p class="text-xl text-tertiary text-overflow" v-if="ep.title">: {{ ep.title }}</p>
+        <nuxt-link v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${ep.id}`" class="p-1 px-3 m-0 flex text-tertiary justify-content-start items-center" :class="ep.number === number ? 'cur':'' ">
+          <p class="text-xl flex-shrink-0">Episode {{ ep.number }}</p>
+          <p class="text-xl text-overflow" v-if="ep.title">: {{ ep.title }}</p>
         </nuxt-link>
       </div>
     </div>
@@ -116,5 +116,10 @@ export default {
 }
 .episode {
   flex: 3;
+}
+.cur {
+  background-color: #222;
+  border-radius: 5px;
+  color: #aaa;
 }
 </style>
