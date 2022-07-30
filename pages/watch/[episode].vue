@@ -3,7 +3,7 @@
     <div class="episode">
       <client-only>
         <Player v-if="!!sources" :sources="sources"
-          class="relative w-full aspect-video mb-8" />
+                class="relative w-full aspect-video mb-8" />
         <div v-else>
           Loading player
         </div>
@@ -54,9 +54,7 @@ if (episode.error.value || !episode?.data.value?.sources?.length) {
 const { id, number, anime, title, sources, image, createdAt } = episode.data.value;
 
 
-const { data: animedetails } = await useFetch(`https://api.enime.moe/anime/${anime.id}`);
-const animeeps = animedetails.value.episodes.sort((a, b) => a.number - b.number);
-
+const animeeps = anime.episodes.sort((a, b) => a.number - b.number);
 const preferredTitle = anime.title.userPreferred || anime.title.english || anime.title.romaji;
 
 useHead({
