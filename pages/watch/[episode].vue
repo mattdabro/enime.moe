@@ -2,7 +2,7 @@
   <div class="cont relative mt-20" v-if="episode.data.value">
     <div class="episode">
       <client-only>
-        <Player v-if="!!sources" @get-instance="getInstance" :sources="sources"
+        <Player v-if="!!sources" :sources="sources"
           class="relative w-full aspect-video mb-8" />
         <div v-else>
           Loading player
@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { definePageMeta } from '#imports';
+import { navigateTo, useFetch, useHead, useRoute, useRouter } from '#app';
 
 definePageMeta({
   key: route => {
@@ -39,7 +40,6 @@ definePageMeta({
   }
 });
 
-import { navigateTo, useFetch, useHead, useRoute, useRouter } from '#app';
 const route = useRoute();
 const router = useRouter();
 
