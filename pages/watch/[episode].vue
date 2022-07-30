@@ -55,7 +55,7 @@ const { id, number, anime, title, sources, image, createdAt } = episode.data.val
 
 
 const { data: animedetails } = await useFetch(`https://api.enime.moe/anime/${anime.id}`);
-const animeeps = animedetails.value.episodes;
+const animeeps = animedetails.value.episodes.sort((a, b) => a.number - b.number);
 
 const preferredTitle = anime.title.userPreferred || anime.title.english || anime.title.romaji;
 
