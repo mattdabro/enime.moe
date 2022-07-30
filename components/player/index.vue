@@ -1,5 +1,5 @@
 <template>
-  <div class=" w-full h-full" ref="artRef" :style="this.style"></div>
+  <div class="w-full h-full p-0 m-0" ref="artRef"></div>
 </template>
 
 <script>
@@ -31,12 +31,7 @@ export default {
           playsInline: true,
           "webkit-playsinline": true
         },
-      },
-      style: {
-        width: "50vw",
-        height: "50vh",
-        margin: "60px auto 0",
-      },
+      }
     };
   },
   props: {

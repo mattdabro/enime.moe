@@ -4,7 +4,7 @@
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
     <div @scroll="scroll" id="eps" ref="eps"
-      class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-screen pr-5">
+      class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-screen pr-5 pl-5">
       <nuxt-link :nuxt-child-key="episode.id" :to="`/watch/${episode.id}`" :key="episode.id"
         v-for="(episode, index) in recent" class="p-0 m-0">
         <episode-card :key="episode.id" :anime="episode.anime" :title="episode.title" :id="episode.id"

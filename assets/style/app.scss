@@ -13,3 +13,9 @@ body {
 .art-contextmenus {
   display: none !important;
 }
+
+.text-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
