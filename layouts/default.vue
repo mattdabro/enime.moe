@@ -1,5 +1,15 @@
 <template>
   <div class="bg-black text-white h-screen w-screen flex flex-col">
+    <div class="flex justify-items-center items-center h-50 mx-auto mt-5 gap-8">
+      <nuxt-link to="/" class="text-4xl text-tertiary">Explore</nuxt-link>
+      <div class="text-4xl text-tertiary flex flex-row flex-nowrap items-center">
+        <svg width="1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <span>Search</span>
+      </div>
+    </div>
     <div class="flex-grow w-screen p-0 m-0">
       <slot />
     </div>

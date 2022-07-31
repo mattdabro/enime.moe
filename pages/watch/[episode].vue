@@ -1,38 +1,38 @@
 <template>
-  <div class="cont relative mt-20" v-if="episode.data.value">
+  <div class="cont relative my-20 items-stretch" v-if="episode.data.value">
     <div class="episode">
       <client-only>
-        <Player v-if="!!sources" :sources="sources"
-                class="relative w-full aspect-video mb-8" />
+        <Player v-if="!!sources" :sources="sources" class="relative w-full aspect-video mb-8" />
         <div v-else>
           Loading player
         </div>
       </client-only>
       <div class="m-2">
         <p class="text-3xl">{{ preferredTitle }}</p>
-        <div class="mt-1 m-0 p-0 flex items-center">
-          <p class="text-xl text-tertiary">Episode {{ number }}</p>
-          <p v-if="title" class="text-xl text-tertiary">
-            : {{ title }}
-          </p>
-        </div>
+        <p class="text-xl text-tertiary">Episode {{ number }}<span v-if="title" class="p-0">: {{ title }}
+          </span>
+        </p>
       </div>
     </div>
-    <div class="list flex-1 pl-10">
-      <span class="text-3xl mb-8 pl-3">Episodes</span>
-      <div class="flex flex-col pt-4">
-        <nuxt-link v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${ep.id}`" class="p-1 px-3 m-0 flex text-tertiary justify-content-start items-center" :class="ep.number === number ? 'cur':'' ">
-          <p class="text-xl flex-shrink-0">Episode {{ ep.number }}</p>
-          <p class="text-xl text-overflow" v-if="ep.title">: {{ ep.title }}</p>
+    <div class="list flex-1 pl-10 inline-flex flex-col items-start justify-start m-0 p-0 h-full">
+      <span class="text-3xl mb-4 pl-3 m-0">Episodes</span>
+      <div class="line"></div>
+      <div ref="next-eps" class="flex flex-col py-3 p-0 m-0 justify-start overflow-y-auto flex-grow">
+        <nuxt-link v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${ep.id}`"
+          class="next-ep p-1 m-1 px-3 m-0 text-tertiary max-h-16" :class="ep.number === number ? 'cur':''"
+          :load="ep.number === number ? eponload : () => {}">
+          <p class="text-xl text-overflow">Episode {{ ep.number }}<span v-if="ep.title">: {{
+              ep.title }}</span></p>
         </nuxt-link>
       </div>
+      <div class="line"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { definePageMeta } from '#imports';
-import { navigateTo, useFetch, useHead, useRoute, useRouter } from '#app';
+import { navigateTo, useFetch, useHead, useRoute } from '#app';
 
 definePageMeta({
   key: route => {
@@ -41,15 +41,13 @@ definePageMeta({
 });
 
 const route = useRoute();
-const router = useRouter();
 
 const episode = await useFetch(`https://api.enime.moe/episode/${route.params.episode}`, {
   key: `/episode/${route.params.episode}`
 });
 
-if (episode.error.value || !episode?.data.value?.sources?.length) {
+if (episode.error.value || !episode?.data.value?.sources?.length)
   await navigateTo("/404?cause=episode-not-found");
-}
 
 const { id, number, anime, title, sources, image, createdAt } = episode.data.value;
 
@@ -100,6 +98,13 @@ export default {
     Player,
   },
   methods: {
+    eponload(e) {
+
+      e.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
   },
 };
 </script>
@@ -109,15 +114,33 @@ export default {
   padding: 0 10vw;
   display: flex;
   flex-direction: row;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  aspect-ratio: 2/.8;
 }
 .episode {
   flex: 3;
 }
 .cur {
-  background-color: #222;
+  background-color: #333;
   border-radius: 5px;
-  color: #aaa;
+  color: #eee;
+}
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+}
+.next-ep {
+  white-space: normal;
+  line-height: 1.75rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.next-ep > p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
 }
 </style>

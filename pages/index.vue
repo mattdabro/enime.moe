@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="font-bold text-4xl ml-8 mt-10">Recently Released</p>
+    <p class="font-bold text-4xl mt-10">Recently Released</p>
     <client-only>
       <recent-release/>
     </client-only>
@@ -14,5 +14,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .text-4xl {
+    margin-left: 10vw;
+  }
 </style>

@@ -2,15 +2,9 @@
   <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 11rem;">
     <div class="anime-image bg-cover bg-center rounded-md mb-2"
       :style="{ backgroundImage: `url(${anime.coverImage})` }" />
-    <div class="mt-1 m-0 p-0 flex items-center">
-      <p class="text-sm text-tertiary flex-shrink-0">EP{{ number }}</p>
-      <!--<bullet />
-      <p class="text-tertiary">{{ createdAt | date }}</p>-->
-      <p class="text-sm text-tertiary text-overflow" v-if="title">: {{ title }}</p>
-    </div>
-    <div class="">
-      <p class="text-overflow p-0 text-white anime-title">{{ anime.title.userPreferred || anime.title.english || anime.title.romaji }}</p>
-    </div>
+    <p class="text-sm text-tertiary text-overflow">EP{{ number }}<span v-if="title">: {{ title }}</span></p>
+    <p class="text-overflow p-0 text-white anime-title">{{ anime.title.userPreferred || anime.title.english ||
+      anime.title.romaji }}</p>
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-screen relative mb-20">
+  <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-full relative mb-20">
     <div ref="sleft" @click="scrollLeft" class="button left disabled p-0 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
     <div @scroll="scroll" id="eps" ref="eps"
-      class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-screen pr-5 pl-5">
+      class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-full pr-5 pl-5">
       <nuxt-link :nuxt-child-key="episode.id" :to="`/watch/${episode.id}`" :key="episode.id"
         v-for="(episode, index) in recent" class="p-0 m-0">
         <episode-card :key="episode.id" :anime="episode.anime" :title="episode.title" :id="episode.id"
@@ -102,7 +102,7 @@
     border-radius: 50%;
     box-shadow: 0px 0px 2px rgb(0, 0, 0);
     background-color: #000;
-    border: solid 1px #aaa;
+    border: solid 1px #333;
     display: flex;
     justify-content: center;
     align-items: center;
