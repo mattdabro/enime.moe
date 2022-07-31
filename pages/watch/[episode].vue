@@ -18,9 +18,8 @@
       <span class="text-3xl mb-4 pl-3 m-0">Episodes</span>
       <div class="line"></div>
       <div ref="next-eps" class="flex flex-col py-3 p-0 m-0 justify-start overflow-y-auto flex-grow">
-        <nuxt-link v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${ep.id}`"
-          class="next-ep p-1 m-1 px-3 m-0 text-tertiary max-h-16" :class="ep.number === number ? 'cur':''"
-          :load="ep.number === number ? eponload : () => {}">
+        <nuxt-link no-prefetch :ref="el => { if (ep.number === this.number) (this.current = el) }" v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${ep.id}`"
+          class="next-ep p-1 m-1 px-3 m-0 text-tertiary max-h-16" :class="ep.number === number ? 'cur':''">
           <p class="text-xl text-overflow">Episode {{ ep.number }}<span v-if="ep.title">: {{
               ep.title }}</span></p>
         </nuxt-link>
@@ -31,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { definePageMeta } from '#imports';
+import { definePageMeta, nextTick, onMounted, ref, watch, watchEffect } from '#imports';
 import { navigateTo, useFetch, useHead, useRoute } from '#app';
 
 definePageMeta({
@@ -50,10 +49,22 @@ if (episode.error.value || !episode?.data.value?.sources?.length)
   await navigateTo("/404?cause=episode-not-found");
 
 const { id, number, anime, title, sources, image, createdAt } = episode.data.value;
-
+const current = ref(null);
 
 const animeeps = anime.episodes.sort((a, b) => a.number - b.number);
 const preferredTitle = anime.title.userPreferred || anime.title.english || anime.title.romaji;
+
+if (process.client) {
+  onMounted(() => {
+    nextTick(() => {
+      setTimeout(() => { // Disgusting trick to make smooth work
+        if (current.value?.$el) {
+          current.value?.$el.scrollIntoView({ block: "nearest", inline: "nearest" })
+        }
+      }, 100)
+    })
+  })
+}
 
 useHead({
   title: `Episode ${number}${title ? ` - ${title}` : ""} | ${preferredTitle} | Enime`,
@@ -98,13 +109,6 @@ export default {
     Player,
   },
   methods: {
-    eponload(e) {
-
-      e.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
   },
 };
 </script>
