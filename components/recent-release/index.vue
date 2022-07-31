@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-full relative mb-20">
+  <div class="flex flex-row items-center mt-6 left-0 right-0 m-0 p-0 w-full mb-20">
     <div ref="sleft" @click="scrollLeft" class="button left disabled p-0 w-10 h-10">
       <left-arrow class="leftarrow" color="#ffF" />
     </div>
