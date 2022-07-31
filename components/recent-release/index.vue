@@ -55,7 +55,7 @@
   async function scroll(e: Event) {
     const eps = e.target as HTMLElement;
 
-    if (eps.scrollLeft >= 0)
+    if (eps.scrollLeft > 0)
       document.querySelector('.left')?.classList?.remove('disabled');
     else document.querySelector('.left')?.classList?.add('disabled');
     if(fullyloaded) {
