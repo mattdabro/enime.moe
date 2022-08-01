@@ -5,6 +5,7 @@
 <script>
 import Artplayer from 'artplayer';
 import Hls from 'hls.js';
+import { useFetch } from '#app';
 
 export default {
   data() {
@@ -35,21 +36,28 @@ export default {
     };
   },
   props: {
-    sources: Array
+    source: {
+      id: String
+    }
+  },
+  async setup(props) {
+    const source = await useFetch(`https://api.enime.moe/source/${props.source.id}`, {
+      key: `source-${props.source.id}`
+    });
+
+    return {
+      source
+    }
   },
   async mounted() {
-    const sources = this.sources.filter(source => source.website !== "Zoro");
-    sources.sort((a, b) => -(a.priority - b.priority));
-
-    let primarySource = sources[0];
-
+    const source = this.source.data.value;
     this.instance = new Artplayer({
       ...this.option,
-      url: primarySource.url,
+      url: source.url,
       container: this.$refs.artRef,
-      ...(primarySource.subtitle && {
+      ...(source.subtitle && {
         subtitle: {
-          url: `https://api.enime.moe/proxy/source/${primarySource.id}/subtitle`,
+          url: source.subtitle,
           type: "vtt",
           encoding: "UTF-8"
         }

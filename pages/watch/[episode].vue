@@ -2,7 +2,7 @@
   <div class="cont relative my-20 items-stretch" v-if="episode.data.value">
     <div class="episode">
       <client-only>
-        <Player v-if="!!sources" :sources="sources" class="relative w-full aspect-video mb-8" />
+        <Player v-if="!!sources" :source="sources[0]" class="relative w-full aspect-video mb-8" />
         <div v-else>
           Loading player
         </div>
