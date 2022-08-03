@@ -50,12 +50,6 @@ export default {
   name: "default",
   methods: {
     search() {
-      this.$router.push({
-        name: "search",
-        params: {
-          query: this.$refs.search.value
-        }
-      });
     }
   }
 }
