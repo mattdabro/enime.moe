@@ -5,7 +5,7 @@
     </div>
     <div @scroll="scroll" id="eps" ref="eps"
       class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-full pr-5 pl-5">
-      <nuxt-link :nuxt-child-key="episode.id" :to="`/watch/${episode.id}`" :key="episode.id"
+      <nuxt-link :nuxt-child-key="episode.id" :to="`/${episode.anime.slug}/episode/${episode.number}`" :key="episode.id"
         v-for="(episode, index) in recent" class="p-0 m-0">
         <episode-card :key="episode.id" :anime="episode.anime" :title="episode.title" :id="episode.id"
           :number="episode.number" :createdAt="episode.createdAt" />
@@ -19,8 +19,9 @@
 
 <script setup lang="ts">
   import { ref, watch } from '#imports';
-  import { useFetch } from '#app';
+  import { useFetch, useRuntimeConfig } from '#app';
 
+  const runtimeConfig = useRuntimeConfig();
   // https://stackoverflow.com/a/42769683/10013227
   function convertRemToPixels(rem: number) {
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -34,7 +35,7 @@
   const page = ref(1);
   const recent = ref([]);
 
-  const { data } = await useFetch(() => `https://api.enime.moe/recent?page=${page.value}&perPage=${rows}`);
+  const { data } = await useFetch(() => `${runtimeConfig.public.enimeApi}/recent?page=${page.value}&perPage=${rows}`);
   load();
 
   function load() {

@@ -23,6 +23,12 @@ export default defineNuxtConfig({
         "@/assets/style/app.scss",
     ],
 
+    runtimeConfig: {
+        public: {
+            enimeApi: "https://api.enime.moe"
+        }
+    },
+
     windicss: {
         scan: {
             dirs: ["./"],
@@ -35,12 +41,6 @@ export default defineNuxtConfig({
 
     vueuse: {
         ssrHandlers: true,
-    },
-
-    vue: {
-        compilerOptions: {
-            isCustomElement: tag => tag.startsWith("vds-")
-        }
     },
 
     link: [

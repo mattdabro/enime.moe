@@ -1,12 +1,10 @@
 <template>
-  <div class="cont relative my-20 items-stretch" v-if="episode.data.value">
+  <div class="cont relative my-20 items-stretch" v-if="episode">
     <div class="episode">
-      <client-only>
-        <Player v-if="!!sources" :source="sources[0]" class="relative w-full aspect-video mb-8" />
-        <div v-else>
-          Loading player
-        </div>
-      </client-only>
+      <Player v-if="!!sources" :source="sources[0]" class="relative w-full aspect-video mb-8" />
+      <div v-else>
+        Loading player
+      </div>
       <div class="m-2">
         <p class="text-3xl">{{ preferredTitle }}</p>
         <p class="text-xl text-tertiary">Episode {{ number }}<span v-if="title" class="p-0">: {{ title }}
@@ -18,8 +16,8 @@
       <span class="text-3xl mb-4 pl-3 m-0">Episodes</span>
       <div class="line"></div>
       <div ref="next-eps" class="flex flex-col py-3 p-0 m-0 justify-start overflow-y-auto flex-grow">
-        <nuxt-link no-prefetch :ref="el => { if (ep.number === this.number) (this.current = el) }" v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${ep.id}`"
-          class="next-ep p-1 m-1 px-3 m-0 text-tertiary max-h-16" :class="ep.number === number ? 'cur':''">
+        <nuxt-link no-prefetch :ref="el => { if (ep.number === this.number) (this.current = el) }" v-for="(ep, index) in animeeps" :key="ep.id" :to="`/${anime.slug}/episode/${ep.number}`"
+                   class="next-ep p-1 m-1 px-3 m-0 text-tertiary max-h-16" :class="ep.number === number ? 'cur':''">
           <p class="text-xl text-overflow">Episode {{ ep.number }}<span v-if="ep.title">: {{
               ep.title }}</span></p>
         </nuxt-link>
@@ -31,40 +29,32 @@
 
 <script setup lang="ts">
 import { definePageMeta, nextTick, onMounted, ref, watch, watchEffect } from '#imports';
-import { navigateTo, useFetch, useHead, useRoute } from '#app';
+import { navigateTo, useFetch, useHead, useRoute, useRuntimeConfig } from '#app';
+import { createError } from 'h3';
+const runtimeConfig = useRuntimeConfig();
+
+const route = useRoute();
+const url = `${route.params.animeslug}/${route.params.episodenum}`;
 
 definePageMeta({
   key: route => {
-    return `/watch/${route.params.episode}`;
+    return `/${route.params.animeslug}/episode/${route.params.episodenum}`;
   }
 });
 
-const route = useRoute();
-
-const episode = await useFetch(`https://api.enime.moe/episode/${route.params.episode}`, {
-  key: `/episode/${route.params.episode}`
+const { error, data: episode } = await useFetch(`${runtimeConfig.public.enimeApi}/view/${url}`, {
+  key: url
 });
 
-if (episode.error.value || !episode?.data.value?.sources?.length)
-  await navigateTo("/404?cause=episode-not-found");
+if (error.value || !episode.value) {
+  throw createError({ statusCode: 404, message: "Episode not found" })
+}
 
-const { id, number, anime, title, sources, image, createdAt } = episode.data.value;
+const { id, number, anime, title, sources, image, createdAt } = episode.value;
 const current = ref(null);
 
 const animeeps = anime.episodes.sort((a, b) => a.number - b.number);
 const preferredTitle = anime.title.userPreferred || anime.title.english || anime.title.romaji;
-
-if (process.client) {
-  onMounted(() => {
-    nextTick(() => {
-      setTimeout(() => { // Disgusting trick to make smooth work
-        if (current.value?.$el) {
-          current.value?.$el.scrollIntoView({ block: "nearest", inline: "nearest" })
-        }
-      }, 100)
-    })
-  })
-}
 
 useHead({
   title: `Episode ${number}${title ? ` - ${title}` : ""} | ${preferredTitle} | Enime`,
