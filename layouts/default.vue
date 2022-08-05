@@ -31,7 +31,7 @@
             files
             across the internet by other third-party providers for easy access.
             <br />
-            © ENIME.MOE 2022
+            © ENIME.MOE 2022 | Built with <a href="https://github.com/Enime-Project/api.enime.moe" class="text-tertiary">Enime API</a>
           </p>
         </div>
         <div class="flex-1 flex items-center justify-center">
@@ -50,7 +50,6 @@ export default {
   name: "default",
   methods: {
     search() {
-
     }
   }
 }
