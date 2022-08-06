@@ -1,8 +1,7 @@
-import { defineNuxtMiddleware } from '@nuxtjs/composition-api';
-import { navigateTo } from '#app';
+import { defineNuxtRouteMiddleware, navigateTo } from '#app';
 import { useSupabaseUser } from '#imports';
 
-export default defineNuxtMiddleware(() => {
+export default defineNuxtRouteMiddleware(() => {
     const user = useSupabaseUser();
 
     if (!user.value) return navigateTo("/");

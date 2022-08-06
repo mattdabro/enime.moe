@@ -51,6 +51,8 @@ export default {
   },
   async mounted() {
     const source = this.source.data.value;
+    Artplayer.TOUCH_MOVE_RATIO = 1.0;
+
     this.instance = new Artplayer({
       ...this.option,
       url: source.url,

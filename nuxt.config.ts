@@ -6,7 +6,7 @@ export default defineNuxtConfig({
         "@vueuse/nuxt",
         "@pinia/nuxt",
         "nuxt-storm",
-        "@nuxtjs/supabase"
+        "@nuxtjs/supabase",
         // "@nuxtjs/partytown"
     ],
 
