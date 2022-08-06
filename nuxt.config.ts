@@ -38,6 +38,11 @@ export default defineNuxtConfig({
         }
     },
 
+    supabase: {
+        url: process.env.NUXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL,
+        key: process.env.NUXT_PUBLIC_SUPABASE_KEY || process.env.SUPABASE_KEY
+    },
+
     vueuse: {
         ssrHandlers: true,
     },

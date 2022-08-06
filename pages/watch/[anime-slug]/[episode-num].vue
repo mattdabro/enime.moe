@@ -38,7 +38,7 @@ const url = `${route.params.animeslug}/${route.params.episodenum}`;
 
 definePageMeta({
   key: route => {
-    return `/${route.params.animeslug}/episode/${route.params.episodenum}`;
+    return `/${route.params.animeslug}/${route.params.episodenum}`;
   }
 });
 
