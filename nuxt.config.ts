@@ -1,13 +1,12 @@
 import { defineNuxtConfig } from 'nuxt';
 
 export default defineNuxtConfig({
-    transpile: ["@vime/vue-next", "@vime/core"],
-
     modules: [
         "nuxt-windicss",
         "@vueuse/nuxt",
         "@pinia/nuxt",
         "nuxt-storm",
+        "@nuxtjs/supabase"
         // "@nuxtjs/partytown"
     ],
 

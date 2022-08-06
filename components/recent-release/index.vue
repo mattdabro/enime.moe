@@ -5,7 +5,7 @@
     </div>
     <div @scroll="scroll" id="eps" ref="eps"
       class="grid grid-rows-2 col-auto row-auto grid-flow-col-dense m-0 overflow-x-scroll w-full pr-5 pl-5">
-      <nuxt-link :nuxt-child-key="episode.id" :to="`/${episode.anime.slug}/episode/${episode.number}`" :key="episode.id"
+      <nuxt-link :nuxt-child-key="episode.id" :to="`/watch/${episode.anime.slug}/${episode.number}`" :key="episode.id"
         v-for="(episode, index) in recent" class="p-0 m-0">
         <episode-card :key="episode.id" :anime="episode.anime" :title="episode.title" :id="episode.id"
           :number="episode.number" :createdAt="episode.createdAt" />

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@nuxtjs/composition-api": "^0.33.0",
+    "@nuxtjs/supabase": "^0.1.19",
     "@pinia/nuxt": "^0.3.0",
     "@vime/core": "^5.3.1",
     "@vime/vue-next": "^5.3.1",

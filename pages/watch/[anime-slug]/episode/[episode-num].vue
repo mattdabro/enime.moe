@@ -16,7 +16,7 @@
       <span class="text-3xl mb-4 pl-3 m-0">Episodes</span>
       <div class="line"></div>
       <div ref="next-eps" class="flex flex-col py-3 p-0 m-0 justify-start overflow-y-auto flex-grow">
-        <nuxt-link no-prefetch :ref="el => { if (ep.number === this.number) (this.current = el) }" v-for="(ep, index) in animeeps" :key="ep.id" :to="`/${anime.slug}/episode/${ep.number}`"
+        <nuxt-link no-prefetch :ref="el => { if (ep.number === this.number) (this.current = el) }" v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${anime.slug}/${ep.number}`"
                    class="next-ep p-1 m-1 px-3 m-0 text-tertiary max-h-16" :class="ep.number === number ? 'cur':''">
           <p class="text-xl text-overflow">Episode {{ ep.number }}<span v-if="ep.title">: {{
               ep.title }}</span></p>
