@@ -15,11 +15,11 @@ COPY pnpm-lock*.yaml ./
 
 COPY . /usr/src/app/
 RUN npm install --legacy-peer-deps
-RUN npm run build
+RUN npm run build:production
 
 EXPOSE 5000
 
 ENV NUXT_HOST=0.0.0.0
 ENV PORT=5000
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "start:production" ]
