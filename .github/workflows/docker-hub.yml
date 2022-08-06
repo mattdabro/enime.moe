@@ -13,6 +13,6 @@ jobs:
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Build the Docker image
-        run: docker build -t enime/site:1.0 .
+        run: docker build --build-arg SUPABASE_URL=${{ secrets.SUPABASE_URL }} --build-arg SUPABASE_KEY=${{ secrets.SUPABASE_KEY }} -t enime/site:1.0 .
       - name: Docker Push
         run: docker push enime/site:1.0
