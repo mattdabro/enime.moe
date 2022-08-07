@@ -69,7 +69,7 @@ useHead({
     },
     {
       name: "og:url",
-      content: `https://enime.moe/watch/${id}`
+      content: `https://enime.moe/watch/${anime.slug}/${number}`
     },
     {
       name: "og:image",

@@ -35,7 +35,9 @@
   const page = ref(1);
   const recent = ref([]);
 
-  const { data } = await useFetch(() => `${runtimeConfig.public.enimeApi}/recent?page=${page.value}&perPage=${rows}`);
+  const { data } = await useFetch(() => `${runtimeConfig.public.enimeApi}/recent?page=${page.value}&perPage=${rows}`, {
+    key: `/recent?page=${page.value}`
+  });
   load();
 
   function load() {
