@@ -9,8 +9,6 @@
 </template>
 
 <script lang="ts">
-import Bullet from '@/components/icon/bullet.vue';
-
 export default {
   props: {
     anime: {
@@ -27,9 +25,6 @@ export default {
     title: !String,
     createdAt: String
   },
-  components: {
-    Bullet
-  }
 }
 </script>
 
