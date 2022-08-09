@@ -4,7 +4,7 @@
     <div v-else>
       <p class="text-4xl">Search Results for "{{url}}":</p>
       <div class="animes grid col-auto rows-auto mt-6 mx-auto">
-        <nuxt-link :nuxt-child-key="anime.id" :to="`/anime/` + anime.id" v-for="(anime, index) in results">
+        <nuxt-link :nuxt-child-key="anime.id" :to="`/anime/` + anime.slug" v-for="(anime, index) in results">
           <anime-card :key="anime.id" :id="anime.id" :slug="anime.slug" :coverImage="anime.coverImage" :status="anime.status"
             :title="anime.title" :currentEpisode="anime.currentEpisode" />
         </nuxt-link>

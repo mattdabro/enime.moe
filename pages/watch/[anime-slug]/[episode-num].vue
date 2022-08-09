@@ -6,7 +6,7 @@
         Loading player
       </div>
       <div class="m-2">
-        <p class="text-3xl">{{ preferredTitle }}</p>
+        <nuxt-link :href="`/anime/` + anime.slug"><p class="text-3xl">{{ preferredTitle }}</p></nuxt-link>
         <p class="text-xl text-tertiary">Episode {{ number }}<span v-if="title" class="p-0">: {{ title }}
           </span>
         </p>
