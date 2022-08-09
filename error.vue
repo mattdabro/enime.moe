@@ -1,13 +1,16 @@
 <template>
-  <p>Error!!!!</p>
+  <p class="text-white">{{ error.statusCode }}</p>
+  <p class="text-white">{{ error.message }}</p>
 </template>
 
 <script setup lang="ts">
-import { clearError } from '#app';
+import { clearError, useError } from '#app';
 
 const props = defineProps({
   error: Object
 })
+
+const error = useError();
 
 const handleError = () => clearError({ redirect: "/" })
 </script>

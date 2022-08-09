@@ -2,7 +2,7 @@
   <div class="cursor-pointer ms-5 mb-6 ml-3" style="width: 20rem;">
     <div class="anime-image bg-cover bg-center rounded-md mb-4" :style="{ backgroundImage: `url(${coverImage})`}">
     </div>
-    <p class="text-overflow p-0 text-white anime-title">{{ title.english || title.native || title.romanji }}</p>
+    <p class="text-overflow p-0 text-white anime-title">{{ title.userPreferred || title.english || title.romanji || title.native }}</p>
     <p class="text-tertiary text-sm">{{status}} • {{currentEpisode}} Episodes</p>
   </div>
 </template>

@@ -1,48 +1,82 @@
 <template>
   <div>
     <p v-if="!anime">Anime not found.</p>
-    <div v-else class="banner w-full block h-100 bg-center bg-cover"
-      :style="{ backgroundImage: `url(${anime.bannerImage || `/images/default-banner.jpg`})` }"></div>
-    <div class="cover absolute w-50 h-75 bg-center bg-cover rounded-md"
-      :style="{ backgroundImage: `url(${anime.coverImage})`}"></div>
-    <div class="desc mb-20">
-      <p class="text-white text-4xl">{{ anime.title.userPreferred || anime.title.english || anime.title.romaji }}</p>
-      <p class="text-tertiary text-2xl">{{ anime.status }} • {{ anime.currentEpisode }} Episodes</p>
-      <button @click="firstep" class="firstep text-sm mt-2 flex flex-row flex-nowrap items-center px-2">
-        <p>First Episode</p>
-        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
-      </button>
-      <p class="desc-text pt-2" v-html="anime.description.replace(/(?:<br>\s*)+/g, `<br>`)"></p>
+    <div v-else>
+      <div class="banner w-full block h-100 bg-center bg-cover"
+           :style="{ backgroundImage: `url(${bannerImage || `/images/default-banner.jpg`})` }"></div>
+      <div class="cover absolute w-50 h-75 bg-center bg-cover rounded-md"
+           :style="{ backgroundImage: `url(${coverImage})`}"></div>
+      <div class="desc mb-20">
+        <p class="text-white text-4xl">{{ title.userPreferred || title.english || title.romaji }}</p>
+        <p class="text-tertiary text-2xl">{{ status }} • {{ currentEpisode }} Episodes</p>
+        <button @click="firstep" class="firstep text-sm mt-2 flex flex-row flex-nowrap items-center px-2">
+          <p>First Episode</p>
+          <svg xmlns="http://www.w3.org/2000/svg" class="inline-block ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </button>
+        <p class="desc-text pt-2" v-html="description.replace(/(?:<br>\s*)+/g, `<br>`)"></p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { useFetch, navigateTo, useRoute, useRuntimeConfig } from '#app';
+import { useFetch, navigateTo, useRoute, useRuntimeConfig, useHead } from '#app';
   import { createError } from 'h3';
 
   const runtimeConfig = useRuntimeConfig();
   const route = useRoute();
   const url = `${route.params.anime}`;
-  const anime = ref({});
 
-  const { error, data } = await useFetch(`${runtimeConfig.public.enimeApi}/anime/${url}`, { key: "/anime/" + url });
+  const { error, data: animeData } = await useFetch(`${runtimeConfig.public.enimeApi}/anime/${url}`, { key: "/anime/" + url });
 
-  if (error.value)
-    throw createError({ statusCode: 429, message: "Too many requests" });
+  if (error.value || !animeData.value)
+    throw createError({ statusCode: 404, message: "Anime not found" });
 
-  if (data.value)
-    anime.value = data.value;
+  const anime = animeData.value;
+  const { title, slug, bannerImage, coverImage, description, status, currentEpisode, color } = anime;
+  const preferredTitle = title.userPreferred || title.english || title.romaji;
 
   function firstep() {
-    navigateTo(`/watch/${anime.value.slug}/1`);
+    navigateTo(`/watch/${slug}/1`);
   }
 
-  // console.log(`${runtimeConfig.public.enimeApi}/anime/${url}`, anime, data);
+  useHead({
+    title: `${preferredTitle} | Enime`,
+    meta: [
+      {
+        name: "og:title",
+        content: `${preferredTitle} | Enime`
+      },
+      {
+        name: "og:type",
+        content: "website"
+      },
+      {
+        name: "og:url",
+        content: `https://enime.moe/anime/${slug}`
+      },
+      {
+        name: "og:image",
+        content: bannerImage || coverImage
+      },
+      {
+        name: "og:description",
+        content: description
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image"
+      },
+      {
+        name: "theme-color",
+        content: color
+      }
+    ]
+  })
 </script>
 
 <script lang="ts">

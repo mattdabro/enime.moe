@@ -38,7 +38,8 @@ export default {
   props: {
     source: {
       id: String
-    }
+    },
+    anime: Object
   },
   async setup(props) {
     const source = await useFetch(`https://api.enime.moe/source/${props.source.id}`, {
@@ -57,6 +58,8 @@ export default {
       ...this.option,
       url: source.url,
       container: this.$refs.artRef,
+      poster: this.anime.bannerImage || this.anime.coverImage,
+      autoMini: true,
       ...(source.subtitle && {
         subtitle: {
           url: source.subtitle,
@@ -78,7 +81,7 @@ export default {
             art.hls.loadSource(url);
             art.hls.attachMedia(video);
           } else {
-            const canPlay = video.canPlayType('application/vnd.apple.mpegurl');
+            const canPlay = video.canPlayType("application/vnd.apple.mpegurl");
             if (canPlay === "probably" || canPlay === "maybe") {
               video.src = url;
             } else {
@@ -108,7 +111,7 @@ export default {
             position: "right",
             html: "Auto",
             width: 200,
-            selector: [...this.instance.hls.levels.map((item, _) => {
+            selector: [...this.instance.hls.levels.filter(item => item.height !== 0).map((item, _) => {
               return {
                 html: item.height + 'P',
                 level: _
@@ -129,7 +132,7 @@ export default {
                 const currentLevel = instance.hls.levels[instance.hls.currentLevel];
                 if (currentLevel && $value) {
                   if (instance.hls.currentLevel === -1) $value.innerHTML = "Auto";
-                  else $value.innerHTML = currentLevel.height + "P";
+                  else if (currentLevel.height !== 0) $value.innerHTML = currentLevel.height + "P";
                 }
               }
 

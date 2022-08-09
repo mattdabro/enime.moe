@@ -1,7 +1,7 @@
 <template>
   <div class="cont relative my-20 items-stretch" v-if="episode">
     <div class="episode">
-      <Player v-if="!!sources" :source="sources[0]" class="relative w-full aspect-video mb-8" />
+      <Player v-if="!!sources" :anime="anime" :source="sources[0]" class="relative w-full aspect-video mb-8" />
       <div v-else>
         Loading player
       </div>
@@ -16,7 +16,7 @@
       <span class="text-3xl mb-4 pl-3 m-0">Episodes</span>
       <div class="line"></div>
       <div ref="next-eps" class="flex flex-col py-3 p-0 m-0 justify-start overflow-y-auto flex-grow">
-        <nuxt-link no-prefetch :ref="el => { if (ep.number === this.number) (this.current = el) }" v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${anime.slug}/${ep.number}`"
+        <nuxt-link no-prefetch :ref="el => { if (ep.number === number) { current = el } }" v-for="(ep, index) in animeeps" :key="ep.id" :to="`/watch/${anime.slug}/${ep.number}`"
                    class="next-ep p-1 m-1 px-3 m-0 text-tertiary max-h-16" :class="ep.number === number ? 'cur':''">
           <p class="text-xl text-overflow">Episode {{ ep.number }}<span v-if="ep.title">: {{
               ep.title }}</span></p>
@@ -34,6 +34,8 @@ import { createError } from 'h3';
 const runtimeConfig = useRuntimeConfig();
 
 const route = useRoute();
+const current = ref(null);
+
 const url = `${route.params.animeslug}/${route.params.episodenum}`;
 
 definePageMeta({
@@ -51,7 +53,6 @@ if (error.value || !episode.value) {
 }
 
 const { id, number, anime, title, sources, image, createdAt } = episode.value;
-const current = ref(null);
 
 const animeeps = anime.episodes.sort((a, b) => a.number - b.number);
 const preferredTitle = anime.title.userPreferred || anime.title.english || anime.title.romaji;
